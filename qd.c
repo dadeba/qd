@@ -114,6 +114,12 @@ static int DD_init(PyDDTypeObject *self, PyObject *args) {
         return 0;
     }
 
+    if(PyTuple_Check(a) && PyTuple_Size(a) == 2) { /* Tuple of two double vars */
+      self->content_data[0] = PyFloat_AS_DOUBLE(PyTuple_GetItem(a, 0));
+      self->content_data[1] = PyFloat_AS_DOUBLE(PyTuple_GetItem(a, 1));
+      return 0;
+    }
+
     return -1;
 }
 
@@ -776,6 +782,14 @@ static int QD_init(PyQDTypeObject *self, PyObject *args) {
         self->content_data[3] = 0.0;
         Py_DECREF(tmp);
         return 0;
+    }
+
+    if(PyTuple_Check(a) && PyTuple_Size(a) == 4) { /* Tuple of four double vars */
+      self->content_data[0] = PyFloat_AS_DOUBLE(PyTuple_GetItem(a, 0));
+      self->content_data[1] = PyFloat_AS_DOUBLE(PyTuple_GetItem(a, 1));
+      self->content_data[2] = PyFloat_AS_DOUBLE(PyTuple_GetItem(a, 2));
+      self->content_data[3] = PyFloat_AS_DOUBLE(PyTuple_GetItem(a, 3));
+      return 0;
     }
 
     return -1;
